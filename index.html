@@ -16,9 +16,9 @@
       //renders the submit button and calls the onClick function during an onClick event
       const SubmitNameButton = ({ onClick }) => {
         return (
-          <button onClick={onClick}>Submit</button>
-        )
-      }
+          <button onClick={onClick} style={{borderRadius:'3px'}}>Submit</button>
+        );
+      };
 
       // Form component
       const NameInputForm = ({ onSubmit }) => {
@@ -30,18 +30,19 @@
         const handleSubmit = (e) => {
           e.preventDefault();
           onSubmit(name);
-        }
+          setName(''); //Clear the input field after submission
+        };
 
         return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
               <label>
                 Name:
-                <input type="text" value={name} onChange={e => setName(e.target.value)} />
+                <input type="text" value={name} onChange={e => setName(e.target.value)} style={{ textAlign: 'center', fontSize: '20px'}}/>
               </label>
               <SubmitNameButton onClick={handleSubmit} />
           </form>
-        )
-      }
+        );
+      };
 
       const App = () => {
         //ages state holds the predicted ages for each name
@@ -59,15 +60,18 @@
                 setAges({ ...ages, [name]: data.age });
                 setOutput(`${name} is predicted to be ${data.age} years old`);
               });
-        }
+        };
+
         return (
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+            <h1>Age Predictor</h1>
+            <h2>Enter a name to predict the age</h2>
             <NameInputForm onSubmit={handleFormSubmit}/>
             <p>{output}</p>
           </div>
         
         );
-      }
+      };
 
       ReactDOM.render(<App />, document.querySelector('#root'));
     </script>
