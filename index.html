@@ -44,13 +44,21 @@
       }
 
       const App = () => {
-
+        //ages state holds the predicted ages for each name
+        const [ages, setAges] = useState({});
         //output state holds the output message
         const [output, setOutput] = useState('');
 
         //handleFormSubmit function is called when the NameIForm is submitted
+        // If the age for the submitted name is already in the ages state, the output message is set to the predicted age
+        // If the age for the submitted name is not in the ages state, a get request is made to the agify API
         const handleFormSubmit = (name) => {
-          setOutput(`Hello ${name}`);
+          ages[name]
+            ? setOutput(`${name} is predicted to be ${ages[name]} years old`) 
+            : $.get(`https://api.agify.io?name=${name}`, (data) => {
+                setAges({ ...ages, [name]: data.age });
+                setOutput(`${name} is predicted to be ${data.age} years old`);
+              });
         }
         return (
           <div>
