@@ -25,21 +25,37 @@
         // name state holds the current value of the input field
         const [name, setName] = useState('');
 
+        //handleSubmit called when the form is submitted
+        //prevents the default form submission and calls the onSubmit function with the current value of the input field
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          onSubmit(name);
+        }
+
         return (
-          <form>
+          <form onSubmit={handleSubmit}>
               <label>
                 Name:
                 <input type="text" value={name} onChange={e => setName(e.target.value)} />
               </label>
-              <SubmitNameButton onClick={() => alert(`Hello ${name}`)} />
+              <SubmitNameButton onClick={handleSubmit} />
           </form>
         )
       }
 
       const App = () => {
+
+        //output state holds the output message
+        const [output, setOutput] = useState('');
+
+        //handleFormSubmit function is called when the NameIForm is submitted
+        const handleFormSubmit = (name) => {
+          setOutput(`Hello ${name}`);
+        }
         return (
           <div>
-            <NameInputForm />
+            <NameInputForm onSubmit={handleFormSubmit}/>
+            <p>{output}</p>
           </div>
         
         );
