@@ -12,6 +12,14 @@
     <script type="text/babel">
       const { useState } = React;
 
+      //Submit button component
+      //renders the submit button and calls the onClick function during an onClick event
+      const SubmitNameButton = ({ onClick }) => {
+        return (
+          <button onClick={onClick}>Submit</button>
+        )
+      }
+
       // Form component
       const NameInputForm = ({ onSubmit }) => {
         // name state holds the current value of the input field
@@ -23,6 +31,7 @@
                 Name:
                 <input type="text" value={name} onChange={e => setName(e.target.value)} />
               </label>
+              <SubmitNameButton onClick={() => alert(`Hello ${name}`)} />
           </form>
         )
       }
